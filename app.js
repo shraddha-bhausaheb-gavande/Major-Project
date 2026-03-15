@@ -30,7 +30,7 @@ const userRouter=require("./routes/user.js");
 
 
 
-const dbUrl = process.env.ATLAS_URL || "mongodb://127.0.0.1:27017/wanderlust";
+const dbUrl = process.env.ATLASDB_URL || "mongodb://127.0.0.1:27017/wanderlust";
 
 main().then(()=>{
   console.log("connected to DB");
