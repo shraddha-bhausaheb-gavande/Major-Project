@@ -30,7 +30,7 @@ const userRouter=require("./routes/user.js");
 
 
 
-const dbUrl="mongodb://127.0.0.1:27017/wanderlust";
+const dbUrl = process.env.ATLAS_URL || "mongodb://127.0.0.1:27017/wanderlust";
 
 main().then(()=>{
   console.log("connected to DB");
@@ -140,13 +140,9 @@ app.use((err,req,res,next)=>{
   // res.status(statuscode).send(message);
 });
 
-app.listen(8080,()=>{
-  console.log("server is listening to port:8080");
-});
-
-app.use((err, req, res, next) => {
-  const { statuscode = 500, message = "Something went wrong" } = err;
-  res.status(statuscode).send(message);
+const PORT = process.env.PORT || 8000;
+app.listen(PORT,()=>{
+  console.log(`server is listening to port ${PORT}`);
 });
 
 
