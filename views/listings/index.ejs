@@ -7,6 +7,33 @@
       flex-wrap: wrap;
       align-items: center;
     }
+
+
+    @media (max-width: 768px) {
+  #filters {
+    flex-wrap: nowrap;        
+    overflow-x: auto;        
+    white-space: nowrap;
+    scrollbar-width: none;
+  }
+
+   #filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter {
+    flex: 0 0 auto;           /* keep items in line */
+    margin-right: 1rem;
+    margin-top: 1rem;
+  }
+
+  .tax-toggle {
+    flex: 0 0 auto;           /* keep it in row */
+    margin-left: 1rem;
+  }
+}
+
+
     .filter{
       text-align: center;
       margin-right: 2rem;
