@@ -80,9 +80,11 @@
            <p class="starability-result card-text" data-rating="<%= review.rating %>"> </p>
           <p class="card-text"><%= review.comment %></p>
          
+          <% if(currUser && review.author._id.equals(currUser._id)){ %>
           <form class="mb-3" method="post" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
             <button class="btn btn-sm btn-dark">Delete</button>
           </form>
+          <% } %>
         </div>
       </div>
       <% } %>
@@ -99,14 +101,18 @@
   
 <script>
   const listing = <%- JSON.stringify(listing) %>;
-  const coordinates = listing.geometry.coordinates;
-  const map = L.map('map').setView([coordinates[1], coordinates[0]], 10);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors',
-    maxZoom: 18
-  }).addTo(map);
-  L.marker([coordinates[1], coordinates[0]])
-    .addTo(map)
-    .bindPopup('<%= listing.location %>')
-    .openPopup();
+  if(listing.geometry && listing.geometry.coordinates && listing.geometry.coordinates.length === 2) {
+    const coordinates = listing.geometry.coordinates;
+    const map = L.map('map').setView([coordinates[1], coordinates[0]], 10);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors',
+      maxZoom: 18
+    }).addTo(map);
+    L.marker([coordinates[1], coordinates[0]])
+      .addTo(map)
+      .bindPopup('<%= listing.location %>')
+      .openPopup();
+  } else {
+    document.getElementById('map').innerHTML = '<p class="text-muted">Map not available for this listing.</p>';
+  }
 </script>
