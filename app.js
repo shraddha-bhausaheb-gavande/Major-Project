@@ -41,10 +41,11 @@ app.use(express.static(path.join(__dirname,"/public")));
 
 const store = MongoStore.create({
   mongoUrl: dbUrl,
-  crypto: { 
+  crypto: {
     secret: process.env.SECRET || "fallbacksecret",
   },
-  touchAfter: 24 * 3600
+  touchAfter: 24 * 3600,
+  collectionName: "sessions",
 });
 
 store.on("error", (err) => {
